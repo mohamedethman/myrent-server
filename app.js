@@ -9,6 +9,8 @@ require('dotenv/config');
 const api = process.env.API_URL;
 
 
+
+app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 const itemsRouter = require('./routers/products');
 const categoriesRoutes = require('./routers/categories');
 
