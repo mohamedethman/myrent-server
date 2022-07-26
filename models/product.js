@@ -22,14 +22,14 @@ const productSchema = mongoose.Schema({
         type: String
     }],
 
-    price: [{
+    price: {
         type: Number
-    }],
+    },
 
    
-    telephone: [{
+    telephone: {
         type: String
-    }],
+    },
    
     desc: {
         type: String,

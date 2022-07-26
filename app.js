@@ -13,23 +13,25 @@ const api = process.env.API_URL;
 app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 const itemsRouter = require('./routers/products');
 const categoriesRoutes = require('./routers/categories');
+const imagesRoutes = require('./routers/image');
 
 //middleware
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 //Routers
+app.use(`${api}/images`, imagesRoutes);
 app.use(`${api}/products`, itemsRouter);
 app.use(`${api}/categories`, categoriesRoutes);
 
 //database
 mongoose.connect(process.env.CONNECTION_STRING)
-.then(()=>{
-    console.log('Database Connection is ready...')
-})
-.catch((err)=> {
-    console.log(err);
-})
+    .then(() => {
+        console.log('Database Connection is ready...')
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 
 
 
@@ -41,7 +43,7 @@ mongoose.connect(process.env.CONNECTION_STRING)
 
 //production
 
-var server = app.listen(process.env.PORT || 3000, function (){
+var server = app.listen(process.env.PORT || 3000, function () {
     var port = server.address().port;
-    console.log("express working on port" +port)
+    console.log("express working on port" + port)
 })
