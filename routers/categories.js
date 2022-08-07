@@ -6,8 +6,11 @@ router.get(`/`, async (req, res) =>{
     if (req.query.rent == '1') {
         filter = {  _id: {$in:['62e6c6bf7a1516d10d81f8b1','62e6c6bf7a1516d10d81f8b3','62e6c6bf7a1516d10d81f8b5']} }
     }
+    if (req.query.rent == '0') {
+        filter = {  _id: {$nin:['62e6c6bf7a1516d10d81f8b1','62e6c6bf7a1516d10d81f8b3','62e6c6bf7a1516d10d81f8b5']} }
+    }
     else {
-        filter = { _id: {$nin:['62e6c6bf7a1516d10d81f8b1','62e6c6bf7a1516d10d81f8b3','62e6c6bf7a1516d10d81f8b5']} }
+        filter = {}
     }
     const categoryList = await Category.find(filter);
 
