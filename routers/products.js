@@ -35,8 +35,11 @@ const uploadOptions = multer({ storage: storage });
 router.get(`/`, async (req, res) => {
     // localhost:3000/api/v1/products?categories=2342342,234234
     let filter = {};
-    if (req.query.categories) {
-        filter = { category: req.query.categories.split(',') }
+    if (req.query.rent == '1') {
+        filter = { category: {$in:['62e6c6bf7a1516d10d81f8b1','62e6c6bf7a1516d10d81f8b3','62e6c6bf7a1516d10d81f8b5']} }
+    }
+    else {
+        filter = { category: {$nin:['62e6c6bf7a1516d10d81f8b1','62e6c6bf7a1516d10d81f8b3','62e6c6bf7a1516d10d81f8b5']} }
     }
     const images = await Image.find({})
     let productList = await Product.find(filter).populate('category');
