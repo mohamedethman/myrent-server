@@ -18,6 +18,11 @@ const productSchema = mongoose.Schema({
         type: Number,
         default:0
     },
+
+    space : {
+        type: Number,
+        default:0
+    },
     images: [{
         type: String
     }],
