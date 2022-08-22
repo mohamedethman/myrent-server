@@ -60,12 +60,14 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/', uploadOptions.single('url'), async (req, res) => {
-    const file = req.file;
-    if (!file) return res.status(400).send('No image in the request');
-    const fileName = req.file.filename
-    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+    // const file = req.file;
+    // if (!file) return res.status(400).send('No image in the request');
+    // const fileName = req.file.filename
+    // const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+    const result = await cloudinary.uploader.upload(req.file.path);
     let image = new Image({
-        url: `${basePath}${fileName}`,
+        // url: `${basePath}${fileName}`,
+        url: result.secure_url,
         product: req.body.product,
 
     })

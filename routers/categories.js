@@ -12,6 +12,7 @@ router.get(`/`, async (req, res) =>{
     if (!req.query.rent) {
         filter = {}
     }
+    
     const categoryList = await Category.find(filter);
 
     if(!categoryList) {

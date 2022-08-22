@@ -5,7 +5,7 @@ const { Image } = require('../models/image');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-
+const cloudinary = require('../utile/cloudinary')
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
@@ -76,16 +76,19 @@ router.post(`/`, uploadOptions.single('image'), async (req, res) => {
     const category = await Category.findById(req.body.category);
     if (!category) return res.status(400).send('Invalid Category')
 
-    const file = req.file;
-    if (!file) return res.status(400).send('No image in the request');
+    // const file = req.file;
+    // if (!file) return res.status(400).send('No image in the request');
 
 
 
-    const fileName = req.file.filename
-    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+    // const fileName = req.file.filename
+    // const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+    const result = await cloudinary.uploader.upload(req.file.path);
     let product = new Product({
         name: req.body.name,
-        image: `${basePath}${fileName}`, // "http://localhost:3000/public/upload/image-2323232"
+        // image: `${basePath}${fileName}`, // "http://localhost:3000/public/upload/image-2323232"
+        image: result.secure_url,
         desc: req.body.desc,
         nbrbed: req.body.nbrbed,
         nbrbr: req.body.nbrbr,
