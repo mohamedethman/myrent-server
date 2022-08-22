@@ -2,6 +2,7 @@ const {Image} = require('../models/image');
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const cloudinary = require('../utile/cloudinary')
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
